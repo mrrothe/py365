@@ -1,0 +1,3 @@
+Jinja2==2.10
+requests==2.21.0
+requests-cache==0.5.2
