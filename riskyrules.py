@@ -77,6 +77,17 @@ def getAllRules():
                     output.append(getRuleRisk(rule, user["userPrincipalName"]))
     return output
 
+def ruleSummarize(rule):
+    enabled=rule["isEnabled"]
+    # This stringifies rule objects in a non-friendly mannger - need to write code to recurseively pull values from objects and add folder name lookup
+    if "conditions" in rule:
+        conditions=rule["conditions"]
+    else:
+        conditions="No conditions - rule applies to all mail"
+    actions=rule["actions"]
+    summary=f"Enabled: {enabled}\n Conditions: {conditions}\n Actions: {actions}"
+    return summary
+
 
 def getRuleRisk(rule, user):
     risk = 0
@@ -84,7 +95,8 @@ def getRuleRisk(rule, user):
         risk += factor.calculateRisk(rule, user)
     if not "conditions" in rule:  # Rule that matches every message
         risk += 60
-    return {"username": user, "rulename": rule["displayName"], "risk": risk}
+    ruleOutput={"username": user, "rulename": rule["displayName"], "rulesummary": ruleSummarize(rule), "risk": risk}
+    return ruleOutput
 
 
 def renderRules():
