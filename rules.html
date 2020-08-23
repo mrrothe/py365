@@ -4,7 +4,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -18,17 +17,18 @@
         crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body style="background-color:#333; color: #ccc">
     <div class="container">
         <h1>RiskyRules Report</h1>
         {% for rule in rulesdata|sort(attribute='risk',reverse=true) %}
         <div class="alert col-md-6 {% if rule.risk>50 %}alert-danger{% else %}alert-primary{% endif %}" role="alert">
-            <b>Mailbox</b>: {{ rule.username }}<br>
-            <b>Rule Name</b>: {{ rule.rulename }}<br>
-            <b>Risk</b>: {{ rule.risk }}
+            <b>Mailbox: </b>{{ rule.username }}<br>
+            <b>Rule Name: </b>{{ rule.rulename }}<br>
+            <b>Risk: </b>{{ rule.risk }}
             <button class="btn btn-secondary float-right" type="button" data-toggle="collapse"
-                data-target="#summary{{ loop.index }}" aria-expanded="false" aria-controls="collapseExample">Details</button>
+                data-target="#summary{{ loop.index }}" aria-expanded="false"
+                aria-controls="collapseExample">Details</button>
             <div class="rulesummary collapse" style="white-space: pre-wrap;" id="summary{{ loop.index }}">{{ rule.rulesummary }}</div>
         </div>
-    {% endfor %}
-</div>
+        {% endfor %}
+    </div>
