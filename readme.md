@@ -2,7 +2,7 @@
 A collection of scripts for finding threats in Office365
 
 ## Risky Rules
-A tool for finding risky or suspicious inbox rules
+A tool for finding risky or suspicious inbox rules - more detail in [this post](https://blog.rothe.uk/risky-rules-in-office365/)
 
 ### Prerequisities
 This tool requires Reqeusts, Requests-cache and Jinja2 - these can be installed with ```pip isntall -r requirements.txt ```
