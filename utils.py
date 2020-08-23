@@ -47,7 +47,6 @@ class rulePrinter:
     def formatObj(self,obj):
         if isinstance(obj, str):
             if len(obj)==120: # Assume folder ID
-                print("Getting Folder")
                 self.output += getFolderName(self.user, obj) + "\n"
             else:
                 self.output += obj  + "\n"
