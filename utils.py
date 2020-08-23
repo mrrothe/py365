@@ -20,7 +20,7 @@ def getAuth():
     global authExpiry, authToken
     expDelta = authExpiry - datetime.datetime.now()
     if expDelta.total_seconds() < 0:  # token expired or not yet generated
-        url = "https://login.microsoftonline.com/rothe.uk/oauth2/v2.0/token"
+        url = f"https://login.microsoftonline.com/{config.domain}/oauth2/v2.0/token"
         payload = f"client_id={config.clientid}&scope=https%3A//graph.microsoft.com/.default%0A&client_secret={config.secret}&grant_type=client_credentials"
         response = requests.post(url, headers={"Content-Type": "application/x-www-form-urlencoded"}, data=payload,).json()
         authExpiry = datetime.datetime.now() + datetime.timedelta(seconds=int(response["expires_in"]))
