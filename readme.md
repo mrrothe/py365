@@ -20,6 +20,3 @@ You will then need to make a copy of config.example.py and update it with your o
 
 ### Usage
 Just run riskyrules.py - no arguments are required and once the script has finished the report will be saved as report.html in the current directory
-
-### Issues
-Currently the rule details in the report are just the python object converted to a string which is pretty messy, I'm planning to resolve this in the next release
