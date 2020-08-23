@@ -34,3 +34,29 @@ def getFolderName(userID, folderID):
     response = requests.get(url, headers={"Authorization": "Bearer " + token}).json()
     return response["displayName"]
 
+class rulePrinter:
+    def __init__(self,rule,user):
+        self.rule=rule
+        self.user=user
+        self.output=""
+    
+    def outputObj(self):
+        self.formatObj(self.rule)
+        return self.output
+
+    def formatObj(self,obj):
+        if isinstance(obj, str):
+            if len(obj)==120: # Assume folder ID
+                print("Getting Folder")
+                self.output += getFolderName(self.user, obj) + "\n"
+            else:
+                self.output += obj  + "\n"
+        if isinstance(obj, bool) or isinstance(obj, int):
+            self.output += str(obj)  + "\n"
+        if isinstance(obj, dict):
+            for k, v in obj.items():
+                self.output += k + " : "
+                self.formatObj(v)
+        if isinstance(obj, list):
+            for i in obj:
+                self.formatObj(i)
