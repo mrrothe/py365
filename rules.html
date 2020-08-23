@@ -27,7 +27,7 @@
             <b>Risk: </b>{{ rule.risk }}
             <button class="btn btn-secondary float-right" type="button" data-toggle="collapse"
                 data-target="#summary{{ loop.index }}" aria-expanded="false"
-                aria-controls="collapseExample">Details</button>
+                aria-controls="collapseExample">Details</button><p></p>
             <div class="rulesummary collapse" style="white-space: pre-wrap;" id="summary{{ loop.index }}">{{ rule.rulesummary }}</div>
         </div>
         {% endfor %}
