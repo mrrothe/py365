@@ -15,7 +15,7 @@ You will need to create a new application registration in the AzureAD portal and
 
 ![AzureAD App](https://blog.rothe.uk/content/images/2020/08/2020-08-23-10_52_34-py365-_-API-permissions---Microsoft-Azure-and-13-more-pages---Home---Microsoft--.png)
 
-Next, generate a secret and make a record of the secret string.
+Next, generate a secret and make a record of the secret string as well as the app/client ID.
 You will then need to make a copy of config.example.py and update it with your own domain, app id and secret
 
 ### Usage
