@@ -19,9 +19,9 @@
 
 <body style="background-color:#333; color: #ccc">
     <div class="container">
-        <h1>RiskyRules Report</h1>
+        <h1>RiskyRules Report</h1><p></p>
         {% for rule in rulesdata|sort(attribute='risk',reverse=true) %}
-        <div class="alert col-md-6 {% if rule.risk>50 %}alert-danger{% else %}alert-primary{% endif %}" role="alert">
+        <div class="alert col-md-10 {% if rule.risk>50 %}alert-danger{% else %}alert-primary{% endif %}" role="alert">
             <b>Mailbox: </b>{{ rule.username }}<br>
             <b>Rule Name: </b>{{ rule.rulename }}<br>
             <b>Risk: </b>{{ rule.risk }}
