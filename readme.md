@@ -5,7 +5,7 @@ A collection of scripts for finding threats in Office365
 A tool for finding risky or suspicious inbox rules - more detail in [this post](https://blog.rothe.uk/risky-rules-in-office365/)
 
 ### Prerequisities
-This tool requires Reqeusts, Requests-cache and Jinja2 - these can be installed with ```pip isntall -r requirements.txt ```
+This tool requires Reqeusts, Requests-cache and Jinja2 - these can be installed with ```pip install -r requirements.txt ```
 It requires an administrative access to AzureAD & Office365 environment to set up but no specific account is required for its continued use.
 You will need to create a new application registration in the AzureAD portal and grant it the following permissions at the application level and grant admin consent for them:
 + Microsoft Graph
