@@ -27,9 +27,9 @@ class riskFactor:
             for action, actionValue in rule["actions"].items():
                 if action == "moveToFolder":  # Rules contain folderID rather than folder name so we need to look it up
                     actionValue = utils.getFolderName(user, actionValue)
-                if isinstance(actionValue[0], dict):
-                    actionValue = actionValue[0]["emailAddress"]["address"]
-
+                if isinstance(actionValue, list):
+                    if isinstance(actionValue[0], dict):
+                        actionValue = actionValue[0]["emailAddress"]["address"]
                 if self.subType == action and self.value is None and self.regex is None:  # if rule doesn't specify a value/regex
                     return self.risk
                 elif self.subType == action and self.value == "".join(actionValue):  # If rule specifies a fixed string
@@ -77,16 +77,9 @@ def getAllRules():
                     output.append(getRuleRisk(rule, user["userPrincipalName"]))
     return output
 
-def ruleSummarize(rule):
-    enabled=rule["isEnabled"]
-    # This stringifies rule objects in a non-friendly mannger - need to write code to recurseively pull values from objects and add folder name lookup
-    if "conditions" in rule:
-        conditions=rule["conditions"]
-    else:
-        conditions="No conditions - rule applies to all mail"
-    actions=rule["actions"]
-    summary=f"Enabled: {enabled}\n Conditions: {conditions}\n Actions: {actions}"
-    return summary
+def ruleSummarize(rule,user):
+    r=utils.rulePrinter(rule,user)
+    return r.outputObj()
 
 
 def getRuleRisk(rule, user):
@@ -95,7 +88,7 @@ def getRuleRisk(rule, user):
         risk += factor.calculateRisk(rule, user)
     if not "conditions" in rule:  # Rule that matches every message
         risk += 60
-    ruleOutput={"username": user, "rulename": rule["displayName"], "rulesummary": ruleSummarize(rule), "risk": risk}
+    ruleOutput={"username": user, "rulename": rule["displayName"], "rulesummary": ruleSummarize(rule,user), "risk": risk}
     return ruleOutput
 
 
