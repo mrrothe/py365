@@ -31,8 +31,11 @@ def getAuth():
 def getFolderName(userID, folderID):
     token = getAuth()
     url = f"https://graph.microsoft.com/beta/users/{userID}/mailFolders/{folderID}"
-    response = requests.get(url, headers={"Authorization": "Bearer " + token}).json()
-    return response["displayName"]
+    try:
+        response = requests.get(url, headers={"Authorization": "Bearer " + token}).json()["displayName"]
+    except KeyError:
+        response = "Folder does not exist"
+    return response
 
 class rulePrinter:
     def __init__(self,rule,user):
