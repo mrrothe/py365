@@ -65,7 +65,10 @@ def getRules(userid):
     token = utils.getAuth()
     url = f"https://graph.microsoft.com/beta/users/{userid}/mailFolders/inbox/messagerules"
     response = requests.get(url, headers={"Authorization": "Bearer " + token}).json()
-    return response["value"]
+    try:
+        return response["value"]
+    except KeyError: # Account has no rules
+        return {}
 
 
 def getAllRules():
@@ -77,8 +80,9 @@ def getAllRules():
                     output.append(getRuleRisk(rule, user["userPrincipalName"]))
     return output
 
-def ruleSummarize(rule,user):
-    r=utils.rulePrinter(rule,user)
+
+def ruleSummarize(rule, user):
+    r = utils.rulePrinter(rule, user)
     return r.outputObj()
 
 
@@ -88,7 +92,7 @@ def getRuleRisk(rule, user):
         risk += factor.calculateRisk(rule, user)
     if not "conditions" in rule:  # Rule that matches every message
         risk += 60
-    ruleOutput={"username": user, "rulename": rule["displayName"], "rulesummary": ruleSummarize(rule,user), "risk": risk}
+    ruleOutput = {"username": user, "rulename": rule["displayName"], "rulesummary": ruleSummarize(rule, user), "risk": risk}
     return ruleOutput
 
 
