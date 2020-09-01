@@ -3,7 +3,7 @@ import datetime
 import requests_cache
 import config
 
-requests_cache.install_cache(backend="memory")
+requests_cache.install_cache(backend="memory",allowable_methods=('GET', 'POST' ))
 
 authExpiry = datetime.datetime.now()
 authToken = ""
@@ -41,8 +41,8 @@ def getObjName(objID):
     token = getAuth()
     url = "https://graph.microsoft.com/v1.0/directoryObjects/getByIds"
     payload={'ids':[objID]}
-    response=requests.post(url,json=payload,headers={"Authorization": "Bearer " + token}).json()
-    return response['value'][0]
+    response=requests.post(url,json=payload,headers={"Authorization": "Bearer " + token})
+    return response.json()['value'][0]
 
 class rulePrinter:
     def __init__(self,rule,user):
