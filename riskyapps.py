@@ -26,7 +26,7 @@ class riskFactor:
             elif self.appProperty == appProperty and isinstance(appValue,list) and isinstance(self.value,list):
                     if set(appValue).intersection(self.value):
                         risk+= len(set(appValue).intersection(self.value))*self.risk
-            elif self.appProperty == appProperty and self.regex and bool(re.search(self.regex, "".join(appValue), re.IGNORECASE)):  # If rule specifies a regex
+            elif self.appProperty == appProperty and self.regex and bool(re.search(self.regex, appValue, re.IGNORECASE)):  # If rule specifies a regex
                 risk+= self.risk
         return risk
 
