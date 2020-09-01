@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</head>
+
+<body style="background-color:#333; color: #ccc">
+    <div class="container">
+        <h1>RiskyApps Report</h1><p></p>
+        {% for app in appdata|sort(attribute='risk',reverse=true) %}
+        <div class="alert col-md-10 {% if app.risk>50 %}alert-danger{% else %}alert-primary{% endif %}" role="alert">
+            <b>App Name: </b>{{ app.clientName }}<br>
+            <b>App Resource: </b>{{ app.resourceName }}<br>
+            <b>App User: </b>{{ app.principalName }}<br>
+            <b>Risk: </b>{{ app.risk }}
+            <button class="btn btn-secondary float-right" type="button" data-toggle="collapse"
+                data-target="#summary{{ loop.index }}" aria-expanded="false"
+                aria-controls="collapseExample">Details</button><p></p>
+            <div class="rulesummary collapse" id="summary{{ loop.index }}">
+                <b>App Permissions:</b> <ul>{% for permission in app.scope %}<li>{{ permission }}</li>{% endfor %}</ul>
+                <b>Resource URLs:</b> <ul>{% for url in app.resourceURLs %}<li>{{ url }}</li>{% endfor %}</ul>
+                <b>Client URLs:</b> <ul>{% for url in app.clientURLs %}<li>{{ url }}</li>{% endfor %}</ul>
+                <b>IDs:</b> <ul>{% for id_name,id_value in app.ids.items() %}<li><b>{{ id_name }}: </b>{{ id_value }}</li>{% endfor %}</ul>
+            </div>
+        </div>
+        {% endfor %}
+    </div>

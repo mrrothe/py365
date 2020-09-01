@@ -2,5 +2,5 @@ config.py
 report.html
 __pycache__
 .vscode
-apps.html
+apps-report.html
 apps.json
