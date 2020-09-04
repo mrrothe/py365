@@ -62,6 +62,7 @@ riskFactors.append(riskFactor(ruleElement="action", subType="forwardTo", risk=25
 riskFactors.append(riskFactor(ruleElement="action", subType="redirectTo", risk=35))
 riskFactors.append(riskFactor(ruleElement="action", subType="forwardAsAttachmentTo", risk=35))
 riskFactors.append(riskFactor(ruleElement="action", subType="forwardTo", regex="g(oogle)?mail.com", risk=25))
+riskFactors.append(riskFactor(ruleElement="action", subType="forwardTo", regex=utils.config.domain, risk=-25))
 
 
 def getRules(userid):
