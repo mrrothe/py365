@@ -7,14 +7,16 @@ requests_cache.install_cache(backend="memory",allowable_methods=('GET', 'POST' )
 
 authExpiry = datetime.datetime.now()
 authToken = ""
+allusers=[]
 
-
-def getUsers():
+def getUsers(url="https://graph.microsoft.com/beta/users/"):
+    global allusers
     token = getAuth()
-    url = "https://graph.microsoft.com/beta/users/"
     response = requests.get(url, headers={"Authorization": "Bearer " + token}).json()
-    return response["value"]
-
+    allusers.extend(response["value"])
+    if '@odata.nextLink' in response:
+        getUsers(response['@odata.nextLink'])
+    
 
 def getAuth():
     global authExpiry, authToken
