@@ -3,4 +3,5 @@ report.html
 __pycache__
 .vscode
 apps-report.html
-apps.json
+*.json
+*.db
