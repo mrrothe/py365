@@ -29,7 +29,10 @@ class riskFactor:
                     actionValue = utils.getFolderName(user, actionValue)
                 if isinstance(actionValue, list):
                     if isinstance(actionValue[0], dict):
-                        actionValue = actionValue[0]["emailAddress"]["address"]
+                        if "address" in actionValue[0]["emailAddress"]:
+                             actionValue = actionValue[0]["emailAddress"]["address"]
+                        else:
+                            actionValue = str(actionValue[0]["emailAddress"])
                 if self.subType == action and self.value is None and self.regex is None:  # if rule doesn't specify a value/regex
                     return self.risk
                 elif self.subType == action and self.value == "".join(actionValue):  # If rule specifies a fixed string
@@ -73,7 +76,8 @@ def getRules(userid):
 
 def getAllRules():
     output = []
-    for user in utils.getUsers():
+    utils.getUsers()
+    for user in utils.allusers:
         if user["assignedLicenses"]:
             for rule in getRules(user["userPrincipalName"]):
                 if "conditions" in rule or "actions" in rule:  # Rules without a condition list are client-only and there's nothing to examine
